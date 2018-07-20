@@ -8,12 +8,20 @@
 </head>
 <body>
 	<div id="app1">
+		<h1>条件和循环练习</h1>
 		<input  @click='addOne' type="button" value="添加" name="add"  id="add" />
 		<table border="1" cellpadding="10px" cellspacing="0px">
 			<tr><th>姓名</th><th>审核状态</th><th>操作</th></tr>
 			<tr  @click='deleteOrCheck'  v-for='(item,index) of items' v-show='item.show'  v-bind:data-index='index'><td>{{item.name}}</td><td>{{item.status}}</td><td><button>{{item.operation}}</button></td></tr>
 		</table>
 	</div>
+
+	<div id="app2">
+		<!-- 控制样式练习 -->
+		<h1>控制样式练习</h1>
+		<div :style="styleObject" @click="styleObject.background=styleObject.background=='red'?'blue':'red'"></div>
+		
+	</div>	
 
 	<script type="text/javascript" src="./index.js"></script>
 </body>

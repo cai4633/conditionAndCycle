@@ -28,4 +28,14 @@ var app1=new Vue({
 		}
 	}
 
-})
+}),app2=new Vue({
+	el:'#app2',
+	data:{
+		styleObject:{background:'red',width:'100px',height:'100px'}
+	},
+	methods:{
+}
+
+}
+
+	);
