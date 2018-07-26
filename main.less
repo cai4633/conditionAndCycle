@@ -8,21 +8,28 @@ table {
 	text-align: center;
 }
 
-#app1 {
+h1 {
+	font-size: 1.5em;
+}
+
+.border {
+	//border属性；
 	border: 2px dashed #D9D3D3;
+}
 
-	h1 {
-		font-size: 1.5em;
-	}
-
+#app1 {
+	.border;
 }
 
 #app2 {
 	margin-top: 2em;
-	border: 2px dashed #D9D3D3;
+	.border;
+}
 
-	h1 {
-		font-size: 1.5em;
+#app3{
+	.border;
+	margin-top: 2em;
+	button{
+		margin-left: 2em;
 	}
-
 }

@@ -20,8 +20,14 @@
 		<!-- 控制样式练习 -->
 		<h1>控制样式练习</h1>
 		<div :style="styleObject" @click="styleObject.background=styleObject.background=='red'?'blue':'red'"></div>
-		
 	</div>	
+
+	<div id='app3'>
+		<!-- 组件通信练习 -->
+				<father-component  @show='showSomething' ></father-component>
+				<div :style='{color:activeColor}'><strong>我是更高级父组件：</strong><span>{{showText}}</span></div>
+			
+	 </div>
 
 	<script type="text/javascript" src="./index.js"></script>
 </body>
