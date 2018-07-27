@@ -22,10 +22,11 @@ var sonComponent={
 				
 			},
 			changeSon:function(){
+				this.text=this.$refs.myEdit.innerHTML;/*当span标签编辑时，使input和span内容一致*/
 
 			}
 		},
-		template:`<div><h1>组件通信练习 </h1><sonComponent v-model='text' @show='showSomething' ></sonComponent><div :style='{color:activeColor}'><strong>我是父组件：</strong><span contenteditable='true' @input='changeSon'>{{showText}}</span></div></div>`,
+		template:`<div><h1>组件通信练习 </h1><sonComponent v-model='text' @show='showSomething' ></sonComponent><div :style='{color:activeColor}'><strong>我是父组件：</strong><span contenteditable='true' @input='changeSon'　ref='myEdit'>{{showText}}</span></div></div>`,
 		components:{
 			'sonComponent':sonComponent
 		}
