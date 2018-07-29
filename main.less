@@ -1,3 +1,7 @@
+* {
+	font-family: 'microsoft yahei';
+}
+
 input {
 	font-size: 1.2em;
 	margin-bottom: 10px;
@@ -15,6 +19,7 @@ h1 {
 .border {
 	//border属性；
 	border: 2px dashed #D9D3D3;
+	padding: 1em;
 }
 
 #app1 {
@@ -26,10 +31,71 @@ h1 {
 	.border;
 }
 
-#app3{
+#app3 {
 	.border;
 	margin-top: 2em;
-	button{
+
+	button {
 		margin-left: 2em;
 	}
+
+}
+
+#app4 {
+	.border;
+	margin-top: 2em;
+
+	h2 {
+		text-align: center;
+	}
+
+	main {
+		margin-top: 3em;
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		flex-wrap: wrap;
+		justify-content: space-around;
+
+		.taskContainer {
+			background: #F9D9E0;
+			flex: 0 1 30%;
+			margin-bottom: 2em;
+			border-radius: 10px;
+			padding: 1em;
+
+
+			header {
+				font-weight: bold;
+				display: inline-block;
+				padding: 0.5em 2em;
+				// width: 20%;
+				background: #E9CD15;
+				color: #F03D3D;
+				border-radius: 5px;
+			}
+
+			#section-wrap {
+				border-radius: 10px;
+				background: #F4D75D;
+				margin: 2% auto 8%;
+				text-indent: 3em;
+				padding: 1em;
+				text-align: left;
+				width: 60%;
+				section {
+			
+					
+					span {
+						font-weight: bold;
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
 }

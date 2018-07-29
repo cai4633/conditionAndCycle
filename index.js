@@ -7,6 +7,7 @@ var sonComponent={
 	props:['value'],
 	template:`<div id="container"><input type="text" id="son" :value="value"  @input="$emit('input',$event.target.value)" ><button  @click=" $emit('show') && $parent.$emit('show')">通知父组件</button></div>`/*通过$parent来跨层发射事件*/
 },
+
 	fatherComponent={
 		data:function(){
 			return{text:'',
@@ -30,10 +31,134 @@ var sonComponent={
 		components:{
 			'sonComponent':sonComponent
 		}
+	},
+
+
+	taskMenu={
+		data:function(){
+			return {
+		tasks:[
+			{
+				header:'任务一',
+				items:[{
+					title:'标题： ',
+					content:'样式更改'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月23日'
+				}
+				]
+
+			},		
+			{
+				header:'任务二',
+				items:[{
+					title:'标题： ',
+					content:'自定义事件'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月24日'
+				}
+				]
+			},			
+			{
+				header:'任务三',
+				items:[{
+					title:'标题： ',
+					content:'插槽'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月25日'
+				}
+				]
+			},			
+			{
+				header:'任务四',
+				items:[{
+					title:'标题： ',
+					content:'插槽'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月26日'
+				}
+				]
+			},			
+			{
+				header:'任务五',
+				items:[{
+					title:'标题： ',
+					content:'插槽'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月27日'
+				}
+				]
+			},			
+			{
+				header:'任务六',
+				items:[{
+					title:'标题： ',
+					content:'插槽'
+				},{
+					title:'内容： ',
+					content:'谢谢嘻嘻嘻嘻嘻嘻'
+				},{
+					title:'时间：',
+					content:'2018年7月28日'
+				}
+				]
+			}
+
+		]
+
+	} } ,
+
+		template:`
+		<div>
+			<h2><slot name='title'>任务栏</slot></h2>
+			<main>
+				<div v-for='task of tasks' class="taskContainer">
+					<header>{{task.header}}</header>
+					<div id="section-wrap">
+						<section v-for='item of task.items'>
+							 <span>{{item.title}}</span>{{item.content}}
+						</section>
+					</div>
+				</div>
+			</main>
+		</div>
+		`
+	},
+	mySlot={
+		data:function(){
+			return{
+				title:'任务栏'
+			}
+
+		},
+		template:`<div><task-menu><template slot='title'>{{title}}</template></task-menu></div>`,
+		components:{
+			'task-menu':taskMenu
+		}
 	};
 
-Vue.component("son-component",sonComponent);
 Vue.component("father-component",fatherComponent);
+Vue.component("my-slot",mySlot);
 
 var app1=new Vue({
 	el:'#app1',
@@ -79,6 +204,7 @@ app2=new Vue({
 app3=new Vue({
 	el:'#app3',
 	data:{
+		checked:"",
 		showText:'我也静静等待用户输入！',
 		activeColor:''
 	},
@@ -90,5 +216,12 @@ app3=new Vue({
 		}
 	}
 
+}),
+app4=new Vue({
+	el:'#app4',
+	data:{},
+	methods:{
+
+	}
 });
 
