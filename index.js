@@ -1,7 +1,7 @@
 // import Vue from 'vue';
 // import {appData} from './data.js';
-var appData=require("./data.js").appData;
-console.log(appData)
+// var appData=require("./data.js").appData;
+// console.log(appData)
 var sonComponent={
 	data:function(){
 		return {
