@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>条件和循环学习</title>
-	<link rel="stylesheet" type="text/css" href="./main.min.css">
+	<link rel="stylesheet" type="text/css" href="/main.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>	 
+	<!-- <script src="/data.js" type="module"></script>	  -->
 </head>
 <body>
 	<div id="app1">
@@ -34,6 +35,25 @@
 		<h1>插槽slot学习</h1>
 		<my-slot></my-slot>
 	</div>
-	<script type="text/javascript" src="./index.js"></script>
+
+	<div id="app5">
+		<h2>动画组件transition的应用</h2>
+		<ul>
+			<li v-for='(item,index) of items1'  :key='index' @click='change' :data-index='index' :class='{transition:item.isActive,li:true}'>{{item.caption}}</li>
+
+		</ul>
+		<p>
+			<transition name='fade' mode='out-in' >
+				<span v-for='(item,index)  of items1' v-if='item.isActive' :key="index">
+					{{item.content}}
+				</span>
+			</transition>
+		</p>
+	</div>
+	<div id="app6">
+		<h2>级联组件</h2>
+
+	</div>
+	<script  src="./index.js"></script>
 </body>
 </html>
