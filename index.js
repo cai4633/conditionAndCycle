@@ -1,7 +1,7 @@
 // import Vue from 'vue';
 // import {appData} from './data.js';
 // var appData=require("./data.js").appData;
-// console.log(appData)
+
 var sonComponent={
 	data:function(){
 		return {
@@ -165,16 +165,7 @@ Vue.component("my-slot",mySlot);
 
 var app1=new Vue({
 	el:'#app1',
-	data:{
-		items:[
-		{name:'张三',status:'合格',operation:'删除',show:true},
-		{name:'李四',status:'不合格',operation:'删除',show:true},
-		{name:'王五',status:'待审核',operation:'审核',show:true},
-		{name:'赵六',status:'待审核',operation:'审核',show:true},
-		{name:'孙七',status:'待审核',operation:'审核',show:true}
-		]
-
-	},
+	data:appData.app1.data,
 	methods:{
 		deleteOrCheck:function(event){
 			var index=event.currentTarget.dataset.index;
@@ -229,26 +220,145 @@ app4=new Vue({
 }),
 app5=new Vue({
 	el:'#app5',
-	data:{
-		items1:[{caption:'第一章',isActive:true,content:'在很多情况下，Vue 可以自动得出过渡效果的完成时机。默认情况下，Vue 会等待其在过渡效果的根元素的第一个 transitionend 或 animationend 事件。然而也可以不这样设定——比如，我们可以拥有一个精心编排的一系列过渡效果，其中一些嵌套的内部元素相比于过渡效果的根元素有延迟的或更长的过渡效果。'},
-		{caption:'第二章',isActive:false,content:'不同于 <transition>，它会以一个真实元素呈现：默认为一个 <span>。你也可以通过 tag 特性更换为其他元素。 过渡模式不可用，因为我们不再相互切换特有的元素。 内部元素 总是需要 提供唯一的 key 属性值。'}, 
-		{caption:'第三章',isActive:false,content:'<transition-group> 组件还有一个特殊之处。不仅可以进入和离开动画，还可以改变定位。要使用这个新功能只需了解新增的 v-move 特性，它会在元素的改变定位的过程中应用。像之前的类名一样，可以通过 name 属性来自定义前缀，也可以通过 move-class 属性手动设置。'},
-		{caption:'第四章',isActive:false,content:'这个看起来很神奇，内部的实现，Vue 使用了一个叫 FLIP 简单的动画队列 使用 transforms 将元素从之前的位置平滑过渡新的位置。 我们将之前实现的例子和这个技术结合，使我们列表的一切变动都会有动画过渡。'} 
-		],
-		items2:[1,2,3,4,5,6,7,8,9],
-		show:true,
-	},
+	data:appData.app5.data,
 	computed:{
-	
 
 	},
 	methods:{
 		change:function(event){
 			this.items1.forEach(function(item){item.isActive=false})
-			// [].forEach.call(this.items1,function(item){item.isActive=false});
 			this.items1[event.target.dataset.index].isActive=true;
 
 		}
+	}
+});
+
+
+// 级联选择器定义组件；
+var cascaderList={
+	props:['msg'],
+
+	data:function(){
+		return{
+			id:0,
+			show:false,
+			layer:this.$parent.layer+1,
+			isChecked:false,
+			unique:Math.random().toFixed(5)
+		}
+	},
+	computed:{
+		items:function(){
+			return this.msg;
+		},
+		itemsChild:function(){
+			if(this.msg[this.id].children){
+				return this.msg[this.id].children;
+			}
+		}
+
+	},
+	template:`<div class='position' :data-layer='layer' @click.stop='clickOnDetails'><ul ><li v-for='(item,index) of items' :class='{checked:isChecked}' :data-index='index' :id='index+layer+unique' :key='index+layer+unique'>{{item.label}} <i class="el-icon-arrow-right" v-if="item.children?true:false"></i></li></ul><cascader-list v-if="show"  :msg='itemsChild' @get-ifo='transmitIfo'></cascader-list></div>`,
+	methods:{
+			clickOnDetails:function(event){ 
+				var targetIndex=event.target.dataset.index,
+					curLayer=event.currentTarget.dataset.layer,
+					siblings=event.target.parentNode.children;
+					this.id=targetIndex?targetIndex:this.id;
+					if(event.target.tagName=='LI'){//避免点击ul导致整个列表背景颜色改变和获取li内容出错；
+							if(this.itemsChild){
+								this.show=true;
+							}
+
+								if(this.$children[0]) {
+										this.$children[0].show=false;
+										this.$children[0].unique=Math.random().toFixed(5) ;//注意key值的重要性；
+							}
+								Array.prototype.forEach.call(siblings,function(item,index,arrays){
+									item.classList.remove('checked');
+								});	//点击时清空li背景颜色；
+								event.target.classList.add('checked');//点击选中后改变li背景颜色；
+								this.$emit('get-ifo',{label:event.target.innerText,layer:curLayer,target:event.target});
+							
+						}
+
+
+				},
+			transmitIfo:function($event){
+				this.$emit('get-ifo',$event)
+				}
+	}
+};
+
+Vue.component('cascader-list',cascaderList);
+var app6=new Vue({
+	el:'#app6',
+	data:{
+		ifo:[]
+	},
+	computed:{
+		ifoCopy:function(){
+
+		}
+	},
+
+	components:{
+		"my-cascader":{
+			props:['information'],
+			data:function(){
+				return {items:{},show:false,layer:-1}
+			},
+
+			computed:{
+				ifo:function(){
+						return this.information.join('/');
+					},
+
+			},
+
+			methods:{
+					initMsg:function(){
+						var that=this;
+						if(this.information.length==0){
+							this.show=true;
+							this.items=appData.app6.data;
+							while(that.$children[0]){
+								that.$children[0].show=false;
+								that=that.$children[0];
+						}
+						}
+					},					
+					
+
+
+					transmitIfo:function($event){
+									this.$emit('get-ifo',$event);
+					},
+	
+
+					clickToClear:function(){
+						if (event.target==event.currentTarget) {
+							this.show=false;
+							this.information.length=0;
+						}
+					}
+
+
+			},
+
+			"template":`<div @click='clickToClear'><h2 >级联组件</h2><input id='ifo-bar'placeholder='请选择您满意的选项'  v-model='ifo' type="text" name="cascader" @focus='initMsg'/><input type='submit' value='ENTER' /><cascader-list  :msg='items' v-if="show" @get-ifo='transmitIfo' ref='clearZone'></cascader-list></div>`
+		}
+	},
+
+	methods:{
+			getIfo:function($event){
+				this.$set(this.ifo,$event.layer,$event.label);//动态绑定数组中的项；vue无法动态识别object中属性的添加和删除；
+				if(parseInt($event.layer)+1!==this.ifo.length){//当点击前一级时，使后一级的选项在input中消失；
+					this.ifo.length=parseInt($event.layer)+1;
+				};
+
+			}
+
 	}
 });
 

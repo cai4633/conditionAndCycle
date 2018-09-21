@@ -145,11 +145,74 @@ h1 {
 
 	p {
 		padding: 1em 3em;
-		height:10em;
-		border:2px solid #B7B2B2;
-		span{
+		height: 10em;
+		border: 2px solid #B7B2B2;
+		overflow-y: scroll;
+
+		span {
 			display: inline-block;
 		}
+
+	}
+
+}
+
+#app6 {
+	ul {
+		padding: 1em;
+		li{
+			margin-bottom:1em;
+		}
+	}
+
+	.checked {
+		background: #D8D3D3;
+	}
+
+	li {
+		list-style: none;
+		padding: 0.1em 0px;
+		width: 13em;
+		margin-bottom:0.2em;
+
+		&:hover {
+			background: #D8D3D3;
+		}
+
+		i {
+			float: right;
+			margin-right: 0.2em;
+		}
+
+	}
+
+	input#ifo-bar {
+		margin-right: 2em;
+		width: 20em;
+		font-size: 0.9em;
+	}
+
+	input {
+		font-size: 0.9em;
+	}
+
+	.position {
+		border: 1px solid #B8B7B7;
+
+		* {
+			border: 0px;
+		}
+
+		position: relative;
+		width: 15em;
+
+		div {
+			position: absolute;
+			border: 1px solid #B8B7B7;
+			top: 0px;
+			left: 101%;
+		}
+
 	}
 
 }

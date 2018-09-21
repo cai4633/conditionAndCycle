@@ -4,7 +4,12 @@
 	<meta charset="utf-8"/>
 	<title>条件和循环学习</title>
 	<link rel="stylesheet" type="text/css" href="./main.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>	 
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.0/dist/vue.js"></script>	 
+	<script src="./data.js"></script>	
+		<!-- 引入ElementUI样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<!-- 引入element-ui组件库 -->
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 <body>
 	<div id="app1">
@@ -50,9 +55,12 @@
 		</p>
 	</div>
 	<div id="app6">
-		<h2>级联组件</h2>
-
+		 <my-cascader @get-ifo='getIfo' :information='ifo'></my-cascader> 
 	</div>
+
+	<div id="app7">
+	</div>
+
 	<script  src="./index.js"></script>
 </body>
 </html>
